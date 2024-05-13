@@ -28,7 +28,7 @@ const Note = () => {
         const response1 = await axios(
           {
             method: 'get',
-            url: `${DIRECTUS_URL}/items/Eleve?access_token=${myTokenContext.accessToken.access_token}&sort[]=-id`, 
+            url: `${DIRECTUS_URL}/items/Eleve?access_token=${myTokenContext.accessToken.access_token}&filter[status][_eq]=actif&sort[]=-id`, 
           } //&&limit=3&offset=2&page=2&sort[]=nom&sort[]=-date_created
         );
         setEleves(response1.data.data);
@@ -42,8 +42,9 @@ const Note = () => {
               //&sort[]=-date_fin_evaluation -> pour prendre la evaluation de fin de validite posterieure
             }
           ).then(
-              lesevaluations => {
-                
+              lesevaluations => { 
+                console.log("Eleve (", eleve.id, ")"); /*******marac********* */
+                console.log("Evaluations: ", lesevaluations.data.data);   //******marac***** */             
                 if(lesevaluations.data.data.length >0 ){ 
                   // Filtrer les doublons concernant les eleves d'abord dans de construire le resultat à afficher
                   const eleveTrouve = tabs.find(op => op.id === eleve.id);
@@ -54,10 +55,12 @@ const Note = () => {
                         nom: eleve.nom,
                         prenom: eleve.prenom,
                         status: eleve.status,
-                        evaluation_id: lesevaluations.data.data[0].id,
-                        date_debut_evaluation: lesevaluations.data.data[0].date_debut_evaluation,
-                        date_fin_evaluation: lesevaluations.data.data[0].date_fin_evaluation,
-                        evaluation_eleve_id: lesevaluations.data.data[0].eleve,
+                        evaluation_id: lesevaluations.data.data[1].id,
+                        date_debut_evaluation: lesevaluations.data.data[1].date_debut_evaluation,
+                        date_fin_evaluation: lesevaluations.data.data[1].date_fin_evaluation,
+                        evaluation_eleve_id: lesevaluations.data.data[1].eleve,
+                        matiere: lesevaluations.data.data[1].matiere,
+                        note: lesevaluations.data.data[1].note,
                       }
                     );
                     
@@ -89,8 +92,7 @@ const Note = () => {
             )
           }
         );
-        //console.log("tabs", tabs);
-        console.log("data", data);
+        //console.log("data", data);
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
       }

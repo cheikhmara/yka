@@ -12,6 +12,8 @@ const Thead2 = () => {
             <th>DEBUTEVALUATION</th>
             <th>FINEVALUATION</th>
             <th>EVALUATION_ELEVE_ID</th>
+            <th>MATIERE</th>
+            <th>NOTE</th>
         </tr>
     </thead>
   )

@@ -17,6 +17,8 @@ const Tbody2 = ({eleves}) => {
             date_debut_evaluation={eleve.date_debut_evaluation}
             date_fin_evaluation={eleve.date_fin_evaluation}
             evaluation_eleve_id={eleve.evaluation_eleve_id}
+            matiere={eleve.matiere}
+            note={eleve.note}
         />
       );
     }

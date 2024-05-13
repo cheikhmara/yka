@@ -31,7 +31,7 @@ const Eleve = () => {
         try {
           //console.log("myTokenContext Eleve: ", myTokenContext);
           // Utilisation de l'API Directus pour récupérer des données (ajustez l'URL en fonction de vos besoins)
-          const response = await axios.get(`${directusApiUrl}/items/Eleve?access_token=${myTokenContext.accessToken.access_token}`);
+          const response = await axios.get(`${directusApiUrl}/items/Eleve?access_token=${myTokenContext.accessToken.access_token}`); //&filter[status][_eq]=actif
           //const response = await axios.get(`${directusApiUrl}/items/operateur?access_token=${TOKEN}`);
          
           setData(
