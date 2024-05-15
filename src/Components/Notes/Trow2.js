@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Trow2 = ({id, nom, prenom, status, evaluation_id, date_debut_evaluation, date_fin_evaluation, evaluation_eleve_id, matiere, note}) => {
+const Trow2 = ({id, nom, prenom, status, evaluation_id, date_debut_evaluation, date_fin_evaluation, evaluation_eleve_id, matiere, note, evals}) => {
   return (
     <tr>
         <td>{id}</td>
@@ -13,6 +13,7 @@ const Trow2 = ({id, nom, prenom, status, evaluation_id, date_debut_evaluation, d
         <td>{evaluation_eleve_id}</td>
         <td>{matiere}</td> 
         <td>{note}</td>
+        <td>{evals}</td>
     </tr>
   )
 }

@@ -19,6 +19,7 @@ const Tbody2 = ({eleves}) => {
             evaluation_eleve_id={eleve.evaluation_eleve_id}
             matiere={eleve.matiere}
             note={eleve.note}
+            evals={eleve.evals}
         />
       );
     }

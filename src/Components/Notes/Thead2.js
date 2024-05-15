@@ -8,12 +8,13 @@ const Thead2 = () => {
             <th>NOM</th>
             <th>PRENOM</th>
             <th>STATUS</th>
-            <th>CARTE_ID</th>
-            <th>DEBUTEVALUATION</th>
-            <th>FINEVALUATION</th>
+            <th>EVALUATION_ID</th>
+            <th>DEBUT_EVALUATION</th>
+            <th>FIN_EVALUATION</th>
             <th>EVALUATION_ELEVE_ID</th>
             <th>MATIERE</th>
             <th>NOTE</th>
+            <th>EVALS</th>
         </tr>
     </thead>
   )

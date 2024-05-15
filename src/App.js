@@ -2,13 +2,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import './App.css';
 import {Route, Routes } from 'react-router-dom';
-import Pdi from './Components/pdi';
 import Classe from './Components/Classe';
 import Eleve from './Components/Eleves/Eleve';
 import Evaluation from './Components/Evaluation';
 import { TokenAuthContext } from './useAuth';
 import Menu2 from './Components/Menu2';
 import Note from './Components/Notes/Note';
+import Pdi from './Components/Pdi/Pdi';
 
 function App() {
   return (

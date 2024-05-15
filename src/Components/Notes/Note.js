@@ -4,8 +4,9 @@ import Tableau2 from './Tableau2';
 import Filtre from '../Eleves/Filtre';
 import config from '../../Config';
 import { AuthContext } from '../../useAuth';
+import TrowNotes from './TrowNotes';
 
-const TOKEN = config.apiTOKEN; 
+//const TOKEN = config.apiTOKEN; 
 const DIRECTUS_URL = config.apiURL;  
 
 const Note = () => {
@@ -46,21 +47,22 @@ const Note = () => {
                 console.log("Eleve (", eleve.id, ")"); /*******marac********* */
                 console.log("Evaluations: ", lesevaluations.data.data);   //******marac***** */             
                 if(lesevaluations.data.data.length >0 ){ 
-                  // Filtrer les doublons concernant les eleves d'abord dans de construire le resultat à afficher
+                  // Filtrer les doublons concernant les eleves d'abord avant de construire le resultat à afficher
                   const eleveTrouve = tabs.find(op => op.id === eleve.id);
                   if(!eleveTrouve){
                     tabs.push(
                       {
                         id: eleve.id, // Seul l'element id suffit pour verifier les doublons
                         nom: eleve.nom,
-                        prenom: eleve.prenom,
+                        prenom: eleve.prenom, 
                         status: eleve.status,
-                        evaluation_id: lesevaluations.data.data[1].id,
-                        date_debut_evaluation: lesevaluations.data.data[1].date_debut_evaluation,
-                        date_fin_evaluation: lesevaluations.data.data[1].date_fin_evaluation,
-                        evaluation_eleve_id: lesevaluations.data.data[1].eleve,
+                        evaluation_id: lesevaluations.data.data[0].id,
+                        date_debut_evaluation: lesevaluations.data.data[0].date_debut_evaluation,
+                        date_fin_evaluation: lesevaluations.data.data[0].date_fin_evaluation,
+                        evaluation_eleve_id: lesevaluations.data.data[0].eleve,
                         matiere: lesevaluations.data.data[1].matiere,
                         note: lesevaluations.data.data[1].note,
+                        avals: lesevaluations.data.data,
                       }
                     );
                     
@@ -118,6 +120,7 @@ const Note = () => {
             updateStatusParent={updateStatusParent}
         />
       <Tableau2  eleves={data} />
+
     </>
   );
 };

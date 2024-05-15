@@ -1,0 +1,152 @@
+import React, { useContext, useEffect, useState } from 'react';
+import Tableau3 from './Tableau3';
+import axios from 'axios';
+import Filtre from './Filtre';
+import config from '../../Config';
+//import AccessToken from '../AccessToken';
+import { AuthContext } from '../../useAuth';
+
+//const TOKEN = config.apiTOKEN; 
+const DIRECTUS_URL = config.apiURL;  
+
+//let searchData = [];
+
+const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluation='2024-04-24'}) => {
+    // État pour stocker les données récupérées depuis Directus
+    const [data, setData] = useState(null);
+    //const [searchId, setSearchId] = useState('');
+    //const [searchNom, setSearchNom] = useState('');
+    //const [searchPrenom, setSearchPrenom] = useState('');
+    //const [searchEleve, setSearchEleve] = useState('');
+    //const [searchDateDebutEval, setSearchDateDebutEval] = useState('');
+    const [searchNote, setSearchNote] = useState('');
+    const [searchEnseignant, setSearchEnseignant] = useState('');
+    const [searchMatiere, setSearchMatiere] = useState('');
+    const [searchDomaine, setSearchDomaine] = useState('');
+    //const [searchDateDebutEval, setSearchDateDebutEval] = useState('');
+    //const [searchDateFinEval, setSearchDateFinEval] = useState('');
+
+    // Utilisation du contexte AuthContext déclaré par le fichier useAuth.js
+    const myTokenContext = useContext(AuthContext);
+
+    // URL de l'API Directus
+    //const directusApiUrl = DIRECTUS_URL;
+  
+    useEffect(() => {
+      // Fonction pour effectuer la requête à Directus
+      const fetchData = async () => {
+        try {
+          /*const response = await axios(
+            {
+              method: 'get',
+              url: `${DIRECTUS_URL}/items/evaluation?access_token=${myTokenContext.accessToken.access_token}&filter[eleve][_eq]=${eleve_id}&sort[]=-id`, 
+            } //&&limit=3&offset=2&page=2&sort[]=nom&sort[]=-date_created
+          );*/
+          
+          const response = await axios.get(`${DIRECTUS_URL}/items/evaluation`, {
+            params: {
+              access_token: myTokenContext.accessToken.access_token,
+              filter: {
+                eleve: {
+                  _eq: eleve_id
+                },
+                date_debut_evaluation: {
+                  _eq: date_debut_evaluation
+                },
+                date_fin_evaluation: {
+                  _eq: date_fin_evaluation
+                },
+                /*date: {
+                  _gt: date_debut_evaluation.toLocaleLowerCase(),
+                  _lt: date_fin_evaluation.toLocaleLowerCase()
+                }*/
+              },
+              sort: ['-id']
+            }
+          });
+          
+          console.log("response.data.data: ", response.data.data);
+         
+          setData(
+            response.data.data.filter( 
+                d => { 
+                    //console.log(d);
+                    /*if(searchId !=='' && d.id !== parseInt(searchId)){
+                      return false;
+                    }*/
+                    /*if(searchNom !=='' && !d.nom.toLocaleLowerCase().includes(searchNom.toLocaleLowerCase()))
+                      return false;
+                    if(searchPrenom !=='' && !d.prenom.toLocaleLowerCase().includes(searchPrenom.toLocaleLowerCase()))
+                      return false;
+                    if(searchEleve !=='' && d.eleve !== parseInt(searchEleve))
+                      return false;
+                    if(searchDateDebutEval !=='' && !d.date_debut_evaluation.toLocaleLowerCase().includes(searchDateDebutEval.toLocaleLowerCase()))
+                      return false;*/
+                    if(searchNote !=='' &&  d.note !== parseInt(searchNote))
+                      return false;
+                    if(searchEnseignant !=='' && d.enseignant !== parseInt(searchEnseignant))
+                      return false;
+                    if(searchMatiere !=='' && d.matiere !== parseInt(searchMatiere))
+                      return false;
+                    if(searchDomaine !=='' && d.domaine !== parseInt(searchDomaine))
+                      return false;
+                    return true;
+                }
+            )
+          );
+          
+        } catch (error) {
+          console.error('Erreur lors de la récupération des données de l\'API:', error);
+        }
+      };
+  
+      // Appel de la fonction fetchData lorsque le composant est monté
+      fetchData();
+    }, [ // Le tableau vide signifie que useEffect s'exécutera uniquement lors du montage initial
+        //searchId, 
+        //searchNom, 
+        //searchPrenom, 
+        //searchEleve,
+        searchNote,
+        searchEnseignant, 
+        searchMatiere, 
+        searchDomaine
+  ]); 
+
+    /*const updateStatusParent = (newStatus) => { // Fonction qui sera appelée un composant fils pour passer un state au parent
+      setStatusParent(newStatus);
+      //console.log("statusParent: " + statusParent); 
+    }*/
+
+    return (
+        <>
+            <h1>Programme de Développement Individuel de l'élève {eleve_id}</h1>
+            <h2>Période du {date_debut_evaluation} au {date_fin_evaluation}</h2>
+            
+            <Filtre
+             //searchId={searchId}, onSearchIdChange={setSearchId}
+              //searchNom={searchNom}
+              //onSearchNomChange={setSearchNom}
+              //searchPrenom={searchPrenom}
+              //onSearchPrenomChange={setSearchPrenom}
+              //searchDateDebutEval={searchDateDebutEval}
+              //onSearchDateDebutEvalChange={setSearchDateDebutEval}
+              //searchEleve={searchEleve}
+              //onSearchEleveChange={setSearchEleve}
+              searchNote={searchNote}
+              onSearchNoteChange={setSearchNote}
+              searchEnseignant={searchEnseignant}
+              onSearchEnseignantChange={setSearchEnseignant}
+              searchMatiere={searchMatiere}
+              onSearchMatiereChange={setSearchMatiere}
+              searchDomaine={searchDomaine}
+              onSearchDomaineChange={setSearchDomaine}
+
+            />
+            <br />
+            <Tableau3  evaluations={data} />
+        </>
+    );
+  };
+  
+  export default Pdi; 

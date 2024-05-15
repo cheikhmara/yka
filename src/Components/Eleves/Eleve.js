@@ -5,6 +5,7 @@ import Filtre from './Filtre';
 import config from '../../Config';
 //import AccessToken from '../AccessToken';
 import { AuthContext } from '../../useAuth';
+//import { useParams } from 'react-router-dom';
 
 //const TOKEN = config.apiTOKEN; 
 const DIRECTUS_URL = config.apiURL;  
@@ -18,6 +19,8 @@ const Eleve = () => {
     const [searchNom, setSearchNom] = useState('');
     const [searchPrenom, setSearchPrenom] = useState('');
     const [statusParent, setStatusParent] = useState('');
+
+    //const { parametres } = useParams(); //console.log("parametres: ", parametres);
 
     // Utilisation du contexte AuthContext déclaré par le fichier useAuth.js
     const myTokenContext = useContext(AuthContext);
