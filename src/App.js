@@ -9,11 +9,13 @@ import { TokenAuthContext } from './useAuth';
 import Menu2 from './Components/Menu2';
 import Note from './Components/Notes/Note';
 import Pdi from './Components/Pdi/Pdi';
+import SelectList from './Components/Pdi/form/SelectList';
 
 function App() {
   return (
     <div className="App">
       <TokenAuthContext>
+        {/*<SelectList />*/}
         <Menu2 />
         <Routes>
           <Route path="/pdi" element={<Pdi />} />

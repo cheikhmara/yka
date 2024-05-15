@@ -1,12 +1,14 @@
 import React, { } from 'react'
 import Input from './form/Input';
+import SelectList from './form/SelectList';
+import SelectListMatiere from './form/SelectListMatiere';
 
 const Filtre = ({
                     //searchId, onSearchIdChange, 
                     //searchNom, onSearchNomChange, 
                     //searchPrenom, onSearchPrenomChange,  
-                    searchEleve, onSearchEleveChange,
-                    searchDateDebutEval, onSearchDateDebutEvalChange,
+                    //searchEleve, onSearchEleveChange,
+                    //searchDateDebutEval, onSearchDateDebutEvalChange,
                     searchNote, onSearchNoteChange,
                     searchEnseignant, onSearchEnseignantChange,
                     searchMatiere, onSearchMatiereChange,
@@ -17,24 +19,26 @@ const Filtre = ({
     <>
         <div className="row">
             <div className="col">
-                <Input 
+                {/*<Input  
                     placeholder="Matiere" 
                     value={searchMatiere} 
-                    onChange={onSearchMatiereChange} />
+                    onChange={onSearchMatiereChange} />*/}
+                <SelectListMatiere value={searchMatiere} onChange={onSearchMatiereChange} />
             </div>
-            <div className="col">
+            {/*<div className="col">
                 <Input 
                     placeholder="Domaine" 
                     value={searchDomaine} 
                     onChange={onSearchDomaineChange} />
-            </div>
-        </div>
-        <div className="row">
+            </div>*/}
+        {/*</div>
+        <div className="row">*/}
             <div className="col">
-                <Input 
+                {/*<Input 
                     placeholder="Enseignant" 
                     value={searchEnseignant} 
-                    onChange={onSearchEnseignantChange} />
+                    onChange={onSearchEnseignantChange} />*/}
+                <SelectList value={searchEnseignant} onChange={onSearchEnseignantChange} />
             </div>
             <div className="col">
                 <Input 

@@ -58,7 +58,7 @@ const Eleve = () => {
         } catch (error) {
           console.error('Erreur lors de la récupération des données depuis Directus:', error);
         }
-      };
+      }; // Fin fetchData
   
       // Appel de la fonction fetchData lorsque le composant est monté
       fetchData();
