@@ -15,7 +15,7 @@ const Tbody3 = ({evaluations}) => {
               //prenom={evaluation.prenom} 
               //eleve={evaluation.eleve}
               enseignant={evaluation.enseignant} 
-              domaine={evaluation.domaine} 
+              //domaine={evaluation.domaine} 
               matiere={evaluation.matiere} 
               note={evaluation.note} 
             />

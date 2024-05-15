@@ -5,6 +5,7 @@ import Filtre from './Filtre';
 import config from '../../Config';
 //import AccessToken from '../AccessToken';
 import { AuthContext } from '../../useAuth';
+import { useLocation } from 'react-router-dom';
 
 //const TOKEN = config.apiTOKEN; 
 const DIRECTUS_URL = config.apiURL;  
@@ -22,7 +23,7 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
     const [searchNote, setSearchNote] = useState('');
     const [searchEnseignant, setSearchEnseignant] = useState('');
     const [searchMatiere, setSearchMatiere] = useState('');
-    const [searchDomaine, setSearchDomaine] = useState('');
+    //const [searchDomaine, setSearchDomaine] = useState('');
     //const [searchDateDebutEval, setSearchDateDebutEval] = useState('');
     //const [searchDateFinEval, setSearchDateFinEval] = useState('');
 
@@ -31,6 +32,15 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
 
     // URL de l'API Directus
     //const directusApiUrl = DIRECTUS_URL;
+
+    const location = useLocation();
+    // Utilisation de URLSearchParams pour extraire les paramètres de la requête
+    const queryParams = new URLSearchParams(location.search);
+    // Récupère le paramètre 'eleve' passé par get dans le len Link
+    const eleve = parseInt(queryParams.get('eleve'))>0 ? 
+                      parseInt(queryParams.get('eleve')) : eleve_id; 
+    const nom = queryParams.get('nom');
+    const prenom = queryParams.get('prenom');
   
     useEffect(() => {
       // Fonction pour effectuer la requête à Directus
@@ -48,7 +58,7 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
               access_token: myTokenContext.accessToken.access_token,
               filter: {
                 eleve: {
-                  _eq: eleve_id
+                  _eq: eleve
                 },
                 date_debut_evaluation: {
                   _eq: date_debut_evaluation
@@ -81,14 +91,14 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
                     if(searchEleve !=='' && d.eleve !== parseInt(searchEleve))
                       return false;
                     if(searchDateDebutEval !=='' && !d.date_debut_evaluation.toLocaleLowerCase().includes(searchDateDebutEval.toLocaleLowerCase()))
+                      return false;
+                    if(searchDomaine !=='' && d.domaine !== parseInt(searchDomaine))
                       return false;*/
                     if(searchNote !=='' &&  d.note !== parseInt(searchNote))
                       return false;
                     if(searchEnseignant !=='' && d.enseignant !== parseInt(searchEnseignant))
                       return false;
                     if(searchMatiere !=='' && d.matiere !== parseInt(searchMatiere))
-                      return false;
-                    if(searchDomaine !=='' && d.domaine !== parseInt(searchDomaine))
                       return false;
                     return true;
                 }
@@ -107,10 +117,10 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
         //searchNom, 
         //searchPrenom, 
         //searchEleve,
+        //searchDomaine
         searchNote,
         searchEnseignant, 
         searchMatiere, 
-        searchDomaine
   ]); 
 
     /*const updateStatusParent = (newStatus) => { // Fonction qui sera appelée un composant fils pour passer un state au parent
@@ -120,8 +130,12 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
 
     return (
         <>
-            <h1>Programme de Développement Individuel de l'élève {eleve_id}</h1>
-            <h2>Période du {date_debut_evaluation} au {date_fin_evaluation}</h2>
+            <h1>
+              Programme de Développement Individuel de l'élève  <strong>{prenom} {nom}</strong>
+            </h1>
+            <h2>
+              Période du {date_debut_evaluation} au {date_fin_evaluation}
+            </h2>
             
             <Filtre
              //searchId={searchId}, onSearchIdChange={setSearchId}
@@ -133,14 +147,14 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
               //onSearchDateDebutEvalChange={setSearchDateDebutEval}
               //searchEleve={searchEleve}
               //onSearchEleveChange={setSearchEleve}
+              //searchDomaine={searchDomaine}
+              //onSearchDomaineChange={setSearchDomaine}
               searchNote={searchNote}
               onSearchNoteChange={setSearchNote}
               searchEnseignant={searchEnseignant}
               onSearchEnseignantChange={setSearchEnseignant}
               searchMatiere={searchMatiere}
               onSearchMatiereChange={setSearchMatiere}
-              searchDomaine={searchDomaine}
-              onSearchDomaineChange={setSearchDomaine}
 
             />
             <br />

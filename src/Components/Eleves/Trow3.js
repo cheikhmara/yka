@@ -18,7 +18,7 @@ const Trow3 = ({id, nom, prenom, status, onIsCheckedChange, }) => {
     <tr indice={id} id={"row"+id}>
       <td>
         <Checkbox 
-            id={id} 
+            id={id}
             onIsCheckedChange={onIsCheckedChange}
         />
       </td>
@@ -27,7 +27,9 @@ const Trow3 = ({id, nom, prenom, status, onIsCheckedChange, }) => {
       <td>{prenom}</td>
       <td>{status}</td>
       <td>
-        <Link className="dropdown-item" to="/pdi">PDI</Link>
+        <Link 
+          className="dropdown-item" 
+          to={ "/pdi?eleve=" + id + "&nom=" + nom + "&prenom=" + prenom }>PDI</Link>
       </td>
     </tr>
   )

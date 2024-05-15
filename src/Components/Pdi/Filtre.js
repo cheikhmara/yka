@@ -12,32 +12,16 @@ const Filtre = ({
                     searchNote, onSearchNoteChange,
                     searchEnseignant, onSearchEnseignantChange,
                     searchMatiere, onSearchMatiereChange,
-                    searchDomaine, onSearchDomaineChange, 
+                    //searchDomaine, onSearchDomaineChange, 
                 }) => {
 
   return (
     <>
         <div className="row">
             <div className="col">
-                {/*<Input  
-                    placeholder="Matiere" 
-                    value={searchMatiere} 
-                    onChange={onSearchMatiereChange} />*/}
                 <SelectListMatiere value={searchMatiere} onChange={onSearchMatiereChange} />
             </div>
-            {/*<div className="col">
-                <Input 
-                    placeholder="Domaine" 
-                    value={searchDomaine} 
-                    onChange={onSearchDomaineChange} />
-            </div>*/}
-        {/*</div>
-        <div className="row">*/}
             <div className="col">
-                {/*<Input 
-                    placeholder="Enseignant" 
-                    value={searchEnseignant} 
-                    onChange={onSearchEnseignantChange} />*/}
                 <SelectList value={searchEnseignant} onChange={onSearchEnseignantChange} />
             </div>
             <div className="col">

@@ -4,11 +4,11 @@ const Thead3 = () => {
   return (
     <thead>
         <tr>
-            <th>ID</th>
-            <th>ENSEIGNANT</th>
-            <th>DOMAINE</th>
+            {/*<th>ID</th>
+            <th>ENSEIGNANT</th>*/}
             <th>MATIERE</th>
             <th>NOTE</th>
+            <th>actions</th>
         </tr>
     </thead>
   )
