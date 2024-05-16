@@ -39,6 +39,7 @@ const Tbody3 = ({eleves}) => {
               nom={eleve.nom} 
               prenom={eleve.prenom} 
               status={eleve.status} 
+              classe={eleve.classe} 
               onIsCheckedChange={handleIsCheckedChange}      
             />
       );

@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import Input from './form/Input';
 import Radio from './form/Radio';
+import SelectListClasse from './form/SelectListClasse';
 
 const Filtre = ({
                     searchId, onSearchIdChange, 
                     searchNom, onSearchNomChange, 
                     searchPrenom, onSearchPrenomChange,  
+                    searchClasse, onSearchClasseChange, 
                     updateStatusParent
                 }) => {
     const [checkedStatus, setCheckedStatus] = useState('');
@@ -23,6 +25,9 @@ const Filtre = ({
                     placeholder="ID élève" 
                     value={searchId} 
                     onChange={onSearchIdChange} />
+            </div>
+            <div className="col">
+                <SelectListClasse value={searchClasse} onChange={onSearchClasseChange} />
             </div>
             <div className="col">
                 <div>Status:</div>

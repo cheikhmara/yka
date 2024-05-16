@@ -17,10 +17,10 @@ const Menu2 = () => {
                     </Link>
                     <ul className="dropdown-menu">
                         <li><Link className="dropdown-item" to="/eleve">Eleve</Link></li>
-                        <li><Link className="dropdown-item" to="/Note">Note</Link></li>
+                        {/*<li><Link className="dropdown-item" to="/Note">Note</Link></li>
                         <li><Link className="dropdown-item" to="/classe">Classe</Link></li>
                         <li><Link className="dropdown-item" to="/evaluation">Evaluation</Link></li>
-                        <li><Link className="dropdown-item" to="/pdi">Pdi</Link></li>
+                        <li><Link className="dropdown-item" to="/pdi">Pdi</Link></li>*/}
                     </ul>
                 </li>
                 <li className="nav-item dropdown">

@@ -18,10 +18,10 @@ function App() {
         {/*<SelectList />*/}
         <Menu2 />
         <Routes>
+          <Route path="/" element={<Eleve />} />
           <Route path="/pdi" element={<Pdi />} />
           <Route path="/note" element={<Note />} />
           <Route path="/classe" element={<Classe />} />
-          <Route path="/" element={<Eleve />} />
           <Route path="/eleve" element={<Eleve />} />
           <Route path="/evaluation" element={<Evaluation />} />
         </Routes>

@@ -19,6 +19,7 @@ const Eleve = () => {
     const [searchNom, setSearchNom] = useState('');
     const [searchPrenom, setSearchPrenom] = useState('');
     const [statusParent, setStatusParent] = useState('');
+    const [searchClasse, setSearchClasse] = useState('');
 
     //const { parametres } = useParams(); //console.log("parametres: ", parametres);
 
@@ -50,6 +51,8 @@ const Eleve = () => {
                       return false;
                     if(statusParent !=='' && d.status.toLocaleLowerCase() !== statusParent.toLocaleLowerCase())
                       return false;
+                    if(searchClasse !=='' && d.classe !== parseInt(searchClasse))
+                      return false;
                     return true;
                 }
             )
@@ -62,7 +65,7 @@ const Eleve = () => {
   
       // Appel de la fonction fetchData lorsque le composant est monté
       fetchData();
-    }, [searchId, searchNom, searchPrenom, statusParent]); // Le tableau vide signifie que useEffect s'exécutera uniquement lors du montage initial
+    }, [searchId, searchNom, searchPrenom, statusParent, searchClasse]); // Le tableau vide signifie que useEffect s'exécutera uniquement lors du montage initial
 
     const updateStatusParent = (newStatus) => { // Fonction qui sera appelée un composant fils pour passer un state au parent
       setStatusParent(newStatus);
@@ -79,6 +82,8 @@ const Eleve = () => {
               searchPrenom={searchPrenom}
               onSearchPrenomChange={setSearchPrenom}
               updateStatusParent={updateStatusParent}
+              searchClasse={searchClasse}
+              onSearchClasseChange={setSearchClasse}
             />
             <br />
             <Tableau3  eleves={data} />

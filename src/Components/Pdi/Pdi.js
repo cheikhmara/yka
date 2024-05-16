@@ -5,7 +5,7 @@ import Filtre from './Filtre';
 import config from '../../Config';
 //import AccessToken from '../AccessToken';
 import { AuthContext } from '../../useAuth';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 //const TOKEN = config.apiTOKEN; 
 const DIRECTUS_URL = config.apiURL;  
@@ -66,10 +66,6 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
                 date_fin_evaluation: {
                   _eq: date_fin_evaluation
                 },
-                /*date: {
-                  _gt: date_debut_evaluation.toLocaleLowerCase(),
-                  _lt: date_fin_evaluation.toLocaleLowerCase()
-                }*/
               },
               sort: ['-id']
             }
@@ -130,13 +126,12 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
 
     return (
         <>
-            <h1>
-              Programme de Développement Individuel de l'élève  <strong>{prenom} {nom}</strong>
-            </h1>
             <h2>
-              Période du {date_debut_evaluation} au {date_fin_evaluation}
+              Programme de Développement Individuel de l'élève  <strong>{prenom} {nom}</strong>
             </h2>
-            
+            <h3>
+              Période du {date_debut_evaluation} au {date_fin_evaluation}
+            </h3>
             <Filtre
              //searchId={searchId}, onSearchIdChange={setSearchId}
               //searchNom={searchNom}

@@ -9,6 +9,7 @@ const Thead3 = () => {
             <th>NOM</th>
             <th>PRENOM</th>
             <th>STATUS</th>
+            <th>CLASSE</th>
             <th></th>
         </tr>
     </thead>

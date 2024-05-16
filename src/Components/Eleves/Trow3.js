@@ -2,7 +2,7 @@ import React from 'react'
 import Checkbox from './form/Checkbox3';
 import { Link } from 'react-router-dom';
 
-const Trow3 = ({id, nom, prenom, status, onIsCheckedChange, }) => {
+const Trow3 = ({id, nom, prenom, status, classe, onIsCheckedChange,}) => {
 
   /*function showNotes(e) {
     e.preventDefault();
@@ -26,13 +26,18 @@ const Trow3 = ({id, nom, prenom, status, onIsCheckedChange, }) => {
       <td>{nom}</td>
       <td>{prenom}</td>
       <td>{status}</td>
+      <td>{classe}</td>
       <td>
         <Link 
-          className="dropdown-item" 
-          to={ "/pdi?eleve=" + id + "&nom=" + nom + "&prenom=" + prenom }>PDI</Link>
+          className="" style={{color: "#614a4ce6", textDecoration: "none"}}
+          to={ "/pdi?eleve=" + id + "&nom=" + nom + "&prenom=" + prenom }>
+            <button type="button" className="btn btn-info btn-xs">
+              Pdi
+            </button>
+        </Link>
       </td>
     </tr>
   )
-}
+} 
 
 export default Trow3;
