@@ -9,7 +9,8 @@ import { TokenAuthContext } from './useAuth';
 import Menu2 from './Components/Menu2';
 import Note from './Components/Notes/Note';
 import Pdi from './Components/Pdi/Pdi';
-import SelectList from './Components/Pdi/form/SelectList';
+//import SelectList from './Components/Pdi/form/SelectList';
+import CreateEvaluation from './Components/Pdi/CreateEvaluation';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/classe" element={<Classe />} />
           <Route path="/eleve" element={<Eleve />} />
           <Route path="/evaluation" element={<Evaluation />} />
+          <Route path="/evaluation/create" element={<CreateEvaluation />} />
         </Routes>
       </TokenAuthContext>
 

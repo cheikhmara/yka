@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Tableau3 from './Tableau3';
 import axios from 'axios';
 import Filtre from './Filtre';
@@ -20,14 +20,14 @@ const Eleve = () => {
     const [searchPrenom, setSearchPrenom] = useState('');
     const [statusParent, setStatusParent] = useState('');
     const [searchClasse, setSearchClasse] = useState('');
-
-    //const { parametres } = useParams(); //console.log("parametres: ", parametres);
+    const [classes, setClasses] = useState([]);
 
     // Utilisation du contexte AuthContext déclaré par le fichier useAuth.js
     const myTokenContext = useContext(AuthContext);
-
     // URL de l'API Directus
     const directusApiUrl = DIRECTUS_URL;
+
+    const ref = useRef();
   
     useEffect(() => {
       // Fonction pour effectuer la requête à Directus
@@ -72,9 +72,30 @@ const Eleve = () => {
       //console.log("statusParent: " + statusParent);
     }
 
+    useEffect(() => {
+      // Fonction qui récupère les valeurs de la liste des classes contenue dans la balise Select 
+      const options = ref.current.options; // Accède aux options de l'élément select
+      const valuesAndTextsArray = [];
+      if (options.length>0) {
+        for (let i = 0; i < options.length; i++) {
+          const option = options[i];
+          valuesAndTextsArray.push({
+            value: option.value,
+            text: option.text
+          });
+        }
+        setClasses(valuesAndTextsArray); // Met à jour l'état avec les valeurs et les textes
+        //console.log("classes: ", classes);  
+      } 
+      //console.log("classes: ", ref.current.options[1].value, ref.current.options[1].text);
+      console.log("ref.current.options: ", ref.current.options);
+    }, []); 
+    
+    //console.log("classes: ", classes);
+
     return (
         <>
-            <Filtre
+            <Filtre selectRef={ref}
               searchId={searchId}
               onSearchIdChange={setSearchId}
               searchNom={searchNom}

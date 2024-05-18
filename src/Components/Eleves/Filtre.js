@@ -8,7 +8,8 @@ const Filtre = ({
                     searchNom, onSearchNomChange, 
                     searchPrenom, onSearchPrenomChange,  
                     searchClasse, onSearchClasseChange, 
-                    updateStatusParent
+                    updateStatusParent,
+                    selectRef,
                 }) => {
     const [checkedStatus, setCheckedStatus] = useState('');
 
@@ -27,7 +28,11 @@ const Filtre = ({
                     onChange={onSearchIdChange} />
             </div>
             <div className="col">
-                <SelectListClasse value={searchClasse} onChange={onSearchClasseChange} />
+                <SelectListClasse 
+                    value={searchClasse} 
+                    onChange={onSearchClasseChange} 
+                    selectRef={selectRef}
+                />
             </div>
             <div className="col">
                 <div>Status:</div>

@@ -8,7 +8,7 @@ const DIRECTUS_URL = config.apiURL;
 // URL de l'API Directus
 const directusApiUrl = DIRECTUS_URL;
 
-const SelectListClasse = ({collection='classe', value, onChange}) => {
+const SelectListClasse = ({collection='classe', value, onChange, selectRef}) => {
 
         // État pour stocker les données récupérées depuis Directus
         const [items, setItems] = useState([]);
@@ -36,16 +36,22 @@ const SelectListClasse = ({collection='classe', value, onChange}) => {
             // Appel de la fonction fetchData lorsque le composant est monté
             getItemList();
         }, []);
+
+        //console.log("ref: ", selectRef);
     
   return (
     <div>
-        <select value={value} onChange={(e) => onChange(e.target.value)} className="form-control" >
-            <option value="">--Choisissez une classe--</option>
-            {items.map((item) => (
-            <option key={item.id} value={item.id}>
-                {item.classe} 
-            </option>
-            ))}
+        <select ref={selectRef}
+            value={value} onChange={(e) => onChange(e.target.value)} 
+            className="form-control" 
+            id="selectClasse" 
+            >
+                <option value="">--Choisissez une classe--</option>
+                {items.map((item) => (
+                    <option key={item.id} value={item.id}>
+                        {item.classe} 
+                    </option>
+                ))}
         </select>
     </div>
   )
