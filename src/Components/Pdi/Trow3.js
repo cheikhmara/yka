@@ -10,14 +10,14 @@ const Trow3 = ({id, enseignant, matiere, note}) => {
       <td>{matiere}</td>
       <td>{note}</td>
       <td>
-        <Link 
+        {/*<Link 
           className="" 
           style={{color: "#614a4ce6", textDecoration: "none"}}
           to="/eleve">
             <button type="button" className="btn btn-info btn-xs">
               Liste élèves
             </button>
-        </Link>
+        </Link>*/}
       </td>  
     </tr>
   )

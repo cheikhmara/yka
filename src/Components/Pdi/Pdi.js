@@ -154,6 +154,15 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
             />
             <br />
             <Tableau3  evaluations={data} />
+            <br />
+            <Link 
+                className="" 
+                style={{color: "#614a4ce6", textDecoration: "none"}}
+                to="/eleve">
+                <button type="button" className="btn btn-info btn-xs">
+                    Liste élèves
+                </button>
+            </Link>
         </>
     );
   };

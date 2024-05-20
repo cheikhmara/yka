@@ -11,6 +11,7 @@ const Thead3 = () => {
             <th>STATUS</th>
             <th>CLASSE</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
   )
