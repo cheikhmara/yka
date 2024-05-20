@@ -4,10 +4,10 @@ import Input from './form/Input'
 import Radio from './form/Radio'
 import config from '../../Config';
 
-const TOKEN = config.apiTOKEN; 
+const TOKEN = config.apiTOKEN;
 const DIRECTUS_URL = config.apiURL;  
-
-const CreateEvaluation = () => {
+ 
+const CreateEvaluation = () => { 
     const [eleve, setEleve] = useState();
     const [matiere, setMatiere] = useState(); 
     const [note, setNote] = useState();
@@ -20,7 +20,7 @@ const CreateEvaluation = () => {
     const [etatForm, setEtatForm] = useState('');
 
     const onCheckedStatusChange = (e) => {
-        setStatus(e.target.value);
+        setStatus(e.target.value);     
     }
 
     const handleSubmit = (e) => {
@@ -40,15 +40,18 @@ const CreateEvaluation = () => {
                         note: parseInt(note),
                         appreciation: appreciation,
                         enseignant: parseInt(enseignant),
-                        dateDebutEvaluation: dateDebutEvaluation,
-                        dateFinEvaluation: dateFinEvaluation,
+                        date_debut_evaluation: dateDebutEvaluation,
+                        date_fin_evaluation: dateFinEvaluation,
                         status: status,
                     }, 
                 });
                 console.log("response1: ", response1);
                 setEtatForm('alert alert-success');
                 setMessageErr(`
-                    Infos soumises avec succès {Eleve: ${eleve}, Matiere: ${matiere}, Note: ${note}} 
+                    Infos soumises avec succès {Eleve: ${eleve}, Matiere: ${matiere}, Note: ${note},
+                    appreciation:' ${appreciation}, enseignant: ${enseignant}, 
+                    dateDebutEvaluation: ${dateDebutEvaluation}, dateFinEvaluation: ${dateFinEvaluation},
+                    stas: ${status}} 
                 `);
             }catch (error) {
                 console.error('Erreur lors de la récupération des données depuis Directus:', error);
