@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 const Trow3 = ({id, enseignant, matiere, note}) => {
 
@@ -10,7 +10,7 @@ const Trow3 = ({id, enseignant, matiere, note}) => {
       <td>{matiere}</td>
       <td>{note}</td>
       <td>
-        {/*<Link 
+        {/*<Link  
           className="" 
           style={{color: "#614a4ce6", textDecoration: "none"}}
           to="/eleve">
