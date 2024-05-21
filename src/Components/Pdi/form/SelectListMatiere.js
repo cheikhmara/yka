@@ -8,7 +8,7 @@ const DIRECTUS_URL = config.apiURL;
 // URL de l'API Directus
 const directusApiUrl = DIRECTUS_URL;
 
-const SelectListMatiere = ({collection='matiere', value, onChange}) => {
+const SelectListMatiere = ({collection='matiere', value, onChange, selectRef}) => {
 
         // État pour stocker les données récupérées depuis Directus
         const [items, setItems] = useState([]);
@@ -39,12 +39,16 @@ const SelectListMatiere = ({collection='matiere', value, onChange}) => {
     
   return (
     <div>
-        <select value={value} onChange={(e) => onChange(e.target.value)} className="form-control" >
-            <option value="">--Choisissez une matière--</option>
-            {items.map((item) => (
-            <option key={item.id} value={item.id}>
-                {item.matiere} 
-            </option>
+        <select 
+            ref={selectRef} 
+            value={value} 
+            onChange={(e) => onChange(e.target.value)} 
+            className="form-control" >
+                <option value="">--Choisissez une matière--</option>
+                {items.map((item) => (
+                <option key={item.id} value={item.id}>
+                    {item.matiere} 
+                </option>
             ))}
         </select>
     </div>

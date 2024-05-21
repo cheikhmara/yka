@@ -38,6 +38,12 @@ const Eleve = () => {
           const response = await axios.get(`${directusApiUrl}/items/Eleve?access_token=${myTokenContext.accessToken.access_token}`); //&filter[status][_eq]=actif
           //const response = await axios.get(`${directusApiUrl}/items/operateur?access_token=${TOKEN}`);
          
+          // Remplacer les id des classes par leurs noms corresponadants dans le taleau response.data.data
+          response.data.data.forEach(item => {
+            item.classe = ref.current.options[item.classe].text; 
+          }); 
+          console.log(data);
+
           setData(
             response.data.data.filter( 
                 d => { 
@@ -71,27 +77,6 @@ const Eleve = () => {
       setStatusParent(newStatus);
       //console.log("statusParent: " + statusParent);
     }
-
-    useEffect(() => {
-      // Fonction qui récupère les valeurs de la liste des classes contenue dans la balise Select 
-      const options = ref.current.options; // Accède aux options de l'élément select
-      const valuesAndTextsArray = [];
-      if (options.length>0) {
-        for (let i = 0; i < options.length; i++) {
-          const option = options[i];
-          valuesAndTextsArray.push({
-            value: option.value,
-            text: option.text
-          });
-        }
-        setClasses(valuesAndTextsArray); // Met à jour l'état avec les valeurs et les textes
-        //console.log("classes: ", classes);  
-      } 
-      //console.log("classes: ", ref.current.options[1].value, ref.current.options[1].text);
-      console.log("ref.current.options: ", ref.current.options);
-    }, []); 
-    
-    //console.log("classes: ", classes);
 
     return (
         <>

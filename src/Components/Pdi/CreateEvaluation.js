@@ -47,7 +47,7 @@ const CreateEvaluation = () => {
         e.preventDefault();
 
         if(
-            eleve_id>0 && nom!=='' && prenom!== '' && matiere!=='' && note>=0 && note<=100 
+            eleve_id>0 && matiere!=='' && note>=0 && note<=100 
             //&& dateDebutEvaluation!=null && dateFinEvaluation!=null && status !==''
             ) {
             try{
@@ -123,12 +123,6 @@ const CreateEvaluation = () => {
                 <div className='col'>
                     <label htmlFor='matiere'>Matière</label>
                     <SelectListMatiere value={matiere} onChange={setMatiere} />
-                    {/*<Input 
-                        id="matiere"
-                        placeholder="Matière" 
-                        value={matiere} 
-                        onChange={setMatiere} 
-                    />*/}
                 </div>
             </div>
             <div className='row'>
@@ -157,12 +151,6 @@ const CreateEvaluation = () => {
                 <div className='col'>
                     <label htmlFor='enseignant'>Enseignant</label>
                     <SelectList value={enseignant} onChange={setEnseignant} />
-                    {/*<Input 
-                        id="enseignant"
-                        placeholder="enseignant"
-                        value={enseignant} 
-                        onChange={setEnseignant} 
-                    />*/}
                 </div>
             </div>
             <div className='row'>

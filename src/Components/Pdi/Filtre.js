@@ -4,6 +4,7 @@ import SelectList from './form/SelectList';
 import SelectListMatiere from './form/SelectListMatiere';
 
 const Filtre = ({
+                    selectRef,
                     //searchId, onSearchIdChange, 
                     //searchNom, onSearchNomChange, 
                     //searchPrenom, onSearchPrenomChange,  
@@ -19,7 +20,11 @@ const Filtre = ({
     <>
         <div className="row">
             <div className="col">
-                <SelectListMatiere value={searchMatiere} onChange={onSearchMatiereChange} />
+                <SelectListMatiere 
+                    selectRef={selectRef}
+                    value={searchMatiere} 
+                    onChange={onSearchMatiereChange} 
+                    />
             </div>
             <div className="col">
                 <SelectList value={searchEnseignant} onChange={onSearchEnseignantChange} />
