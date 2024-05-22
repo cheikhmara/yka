@@ -18,6 +18,7 @@ const Menu2 = () => {
                     <ul className="dropdown-menu">
                         <li><Link className="dropdown-item" to="/eleve">Eleve</Link></li>
                         <li><Link className="dropdown-item" to="/evaluation/create">Evaluer</Link></li>
+                        <li><Link className="dropdown-item" to="/evaluations/create">Evaluer classe</Link></li>
                         {/*<li><Link className="dropdown-item" to="/Note">Note</Link></li>
                         <li><Link className="dropdown-item" to="/classe">Classe</Link></li>
                         <li><Link className="dropdown-item" to="/evaluation">Evaluation</Link></li>
