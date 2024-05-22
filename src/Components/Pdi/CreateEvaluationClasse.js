@@ -1,30 +1,34 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios';
-import Input from './form/Input'
-import Radio from './form/Radio'
+//import Input from './form/Input'
+//import Radio from './form/Radio'
 import config from '../../Config';
 import SelectListMatiere from './form/SelectListMatiere';
-import SelectList from './form/SelectList';
-import { Link, useLocation } from 'react-router-dom';
-import InputReadOnly from './form/InputReadOnly';
+//import SelectList from './form/SelectList';
+import { Link } from 'react-router-dom';
+//import InputReadOnly from './form/InputReadOnly';
 import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday } from '../datePdi';
 import { AuthContext } from '../../useAuth';
 import SelectListClasse from '../Eleves/form/SelectListClasse';
+import FormEvaluationClasse from './form/FormEvaluationClasse';
 
 const TOKEN = config.apiTOKEN;
 const DIRECTUS_URL = config.apiURL;  
  
 const CreateEvaluationClasse = () => {
-    const [classe, setClasse] = useState('1');
-    const [matiere, setMatiere] = useState();
-    // État pour stocker les données récupérées depuis Directus
-    const [items, setItems] = useState([]);
+    const [eleve, setEleve] = useState(1);
+    const [classe, setClasse] = useState(2);
+    const [matiere, setMatiere] = useState(16);
+    const [note, setNote] = useState(100);
+    const [appreciation, setAppreciation] = useState('Doit redoubler d\'effort');
+    const [enseignant, setEnseignant] = useState(2);
     const [dateDebutEvaluation, setDateDebutEvaluation] = useState(
         formatDateToYYYYMMDD(getLastThursday(new Date()))
     );
     const [dateFinEvaluation, setDateFinEvaluation] = useState(
         formatDateToYYYYMMDD(getNextWednesday())
     );
+    const [items, setItems] = useState([]);
     const [messageErr, setMessageErr] = useState('');
     const [etatForm, setEtatForm] = useState('');
 
@@ -42,6 +46,9 @@ const CreateEvaluationClasse = () => {
                     const response = await axios.get(`${directusApiUrl}/items/Eleve?filter[classe][_eq]=${classe}&sort[]=id&access_token=${myTokenContext.accessToken.access_token}`); //&filter[status][_eq]=actif
                     //const response = await axios.get(`${directusApiUrl}/items/operateur?access_token=${TOKEN}`);
                     setItems(response.data.data);
+                    //if(items.length>0)
+                    //    setEleve({ id:items[0].id, nom:items[0].nom, prenom:items[0].prenom });
+                    //console.log("eleve: ", eleve);
                 //}
             } catch (error) {
             console.error('Erreur lors de la récupération des données depuis Directus:', error);
@@ -53,11 +60,11 @@ const CreateEvaluationClasse = () => {
 
     console.log("items: ", items, "classe: ", classe, "matiere: ", matiere);
 
-    /*const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         if(
-            eleve_id>0 && matiere!=='' && note>=0 && note<=100 
+            eleve>0 && matiere>0 && note>=0 && note<=100 
             ) {
             try{
                 const response1 = axios({
@@ -71,7 +78,7 @@ const CreateEvaluationClasse = () => {
                         enseignant: parseInt(enseignant),
                         date_debut_evaluation: dateDebutEvaluation,
                         date_fin_evaluation: dateFinEvaluation,
-                        status: status,
+                        status: "published",
                     }, 
                 });
                 console.log("response1: ", response1);
@@ -79,8 +86,7 @@ const CreateEvaluationClasse = () => {
                 setMessageErr(`
                     Infos soumises avec succès {Eleve: ${eleve}, Matiere: ${matiere}, Note: ${note},
                     appreciation:' ${appreciation}, enseignant: ${enseignant}, 
-                    dateDebutEvaluation: ${dateDebutEvaluation}, dateFinEvaluation: ${dateFinEvaluation},
-                    stas: ${status}} 
+                    dateDebutEvaluation: ${dateDebutEvaluation}, dateFinEvaluation: ${dateFinEvaluation}} 
                 `);
             }catch (error) {
                 console.error('Erreur lors de la récupération des données depuis Directus:', error);
@@ -96,14 +102,13 @@ const CreateEvaluationClasse = () => {
         setEleve('');
         setMatiere('');
         setNote('');
-        setApprecation('');
+        setAppreciation('');
         setEnseignant('');
-        setStatus('published');
+        //setStatus('published');
 
         //setEtatForm('');
         //setMessageErr('');
-    }*/
-
+    }
 
   return (
     <>
@@ -127,112 +132,28 @@ const CreateEvaluationClasse = () => {
                 />
             </div>
         </div>
-        {/*<form onSubmit={handleSubmit}>
+        <hr />
+        <form onSubmit={handleSubmit}>
             <div className={etatForm} role="alert">
                 {messageErr}
             </div>
-            <div className='row'>
-                <div className='col'>
-                    <label htmlFor='matiere'>Matière</label>
-                    <SelectListMatiere value={matiere} onChange={setMatiere} />
-                </div>
-            </div>
-            <div className='row'>
-                <div className='col'>
-                    <label htmlFor='note'>Note</label>
-                    <Input 
-                        id="note"
-                        placeholder="Note"
-                        value={note} 
-                        onChange={setNote} 
-                        />
-                </div>
-            </div>
-            <div className='row'>
-                <div className='col'>
-                    <label htmlFor='appreciation'>Appreciation</label>
-                    <Input 
-                        id="appreciation"
-                        placeholder="Appreciaton"
-                        value={appreciation} 
-                        onChange={setApprecation} 
-                        />
-                </div>
-            </div>
-            <div className='row'>
-                <div className='col'>
-                    <label htmlFor='enseignant'>Enseignant</label>
-                    <SelectList value={enseignant} onChange={setEnseignant} />
-                </div>
-            </div>
-            <div className='row'>
-                <div className='col'>
-                    <label htmlFor='dateDebutEvaluation'>Debut Evaluation</label>
-                    <InputReadOnly 
-                        id="dateDebutEvaluation"
-                        placeholder="Debut Evaluation"
-                        value={dateDebutEvaluation} 
-                        onChange={setDateDebutEvaluation} 
-                        readOnly="readOnly"
-                        />
-                </div>
-            </div>
-            <div className='row'>
-                <div className='col'>
-                    <label htmlFor='dateFinEvaluation'>Fin Evaluation</label>
-                    <InputReadOnly 
-                        id="dateFinEvaluation"
-                        placeholder="Fin Evaluation"
-                        value={dateFinEvaluation} 
-                        onChange={setDateFinEvaluation} 
-                        readOnly="readOnly"
-                        />
-                </div>
-            </div>
-            <div className='row'>
-                <label htmlFor='published'>Status</label>
-                <div className='col'> 
-                    <Radio 
-                        status_name="status" 
-                        status_id="published"
-                        status_value="published"
-                        checkedStatus={status}
-                        onCheckedStatusChange={onCheckedStatusChange} 
-                        />
-                </div>
-                <div className='col'>
-                    <Radio 
-                        status_name="status"
-                        status_id="draft"
-                        status_value="draft"
-                        checkedStatus={status}
-                        onCheckedStatusChange={onCheckedStatusChange} 
-                        />
-                </div>
-                <div className='col'>
-                    <Radio  
-                        status_name="status"
-                        status_id="archived"
-                        status_value="archived"
-                        checkedStatus={status} 
-                        onCheckedStatusChange={onCheckedStatusChange} 
-                        />
-                </div>
-            </div>
-            <br />
+            <FormEvaluationClasse 
+                eleve={eleve}
+                matiere={matiere}
+                note={note} 
+                appreciation={appreciation}
+                enseignant={enseignant}
+                setNoteChange={setNote}
+                setAppreciationChange={setAppreciation}
+                setEnseignantChange={setEnseignant}
+                dateDebutEvaluation={dateDebutEvaluation}
+                dateFinEvaluation={dateFinEvaluation}
+            />
             <button 
-                type="submit" 
-                className="btn btn-primary" >Créer une Evaluation
+                type="submit"
+                className="btn btn-primary" >Enregistrer
             </button>
-            <Link 
-                className="" 
-                style={{color: "#614a4ce6", textDecoration: "none"}}
-                to="/eleve">
-                <button type="button" className="btn btn-info btn-xs">
-                    Liste élèves
-                </button>
-            </Link>
-        </form>*/}
+        </form>
     </>
   )
 }
