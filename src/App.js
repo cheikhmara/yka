@@ -12,6 +12,7 @@ import Pdi from './Components/Pdi/Pdi';
 //import SelectList from './Components/Pdi/form/SelectList';
 import CreateEvaluation from './Components/Pdi/CreateEvaluation';
 import CreateEvaluationClasse from './Components/Pdi/CreateEvaluationClasse';
+import EvaluationClasse from './Components/Pdi/EvaluationClasse';
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
           <Route path="/eleve" element={<Eleve />} />
           <Route path="/evaluation" element={<Evaluation />} />
           <Route path="/evaluation/create" element={<CreateEvaluation />} />
-          <Route path="/evaluations/create" element={<CreateEvaluationClasse />} />
+          {/*<Route path="/evaluations/create" element={<CreateEvaluationClasse />} />*/}
+          <Route path="/evaluations/create" element={<EvaluationClasse />} />
         </Routes>
       </TokenAuthContext>
 

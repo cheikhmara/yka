@@ -30,7 +30,7 @@ const FormEvaluationClasse = ({
                 />
         </div>
         <div className='col'>
-            <label htmlFor='eleve'>Eleve {eleve} {eleve}</label>
+            <label htmlFor='eleve'>Eleve</label>
             <InputReadOnly 
                 placeholder="Eleve"
                 value={eleve} 

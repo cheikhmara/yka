@@ -27,7 +27,7 @@ const SelectListClasse = ({collection='classe', value, onChange, selectRef}) => 
                 setItems( 
                     response.data.data
                 );
-                console.log("Items: ", items)
+                //console.log("Items: ", items)
                 
                 } catch (error) {
                 console.error('Erreur lors de la récupération des données depuis Directus:', error);

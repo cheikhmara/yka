@@ -1,70 +1,65 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-//import Input from './form/Input'
-//import Radio from './form/Radio'
 import config from '../../Config';
 import SelectListMatiere from './form/SelectListMatiere';
-//import SelectList from './form/SelectList';
-import { Link } from 'react-router-dom';
-//import InputReadOnly from './form/InputReadOnly';
 import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday } from '../datePdi';
-import { AuthContext } from '../../useAuth';
+//import { AuthContext } from '../../useAuth';
 import SelectListClasse from '../Eleves/form/SelectListClasse';
 import FormEvaluationClasse from './form/FormEvaluationClasse';
 
 const TOKEN = config.apiTOKEN;
 const DIRECTUS_URL = config.apiURL;  
  
-const CreateEvaluationClasse = () => {
-    const [eleve, setEleve] = useState(1);
-    const [classe, setClasse] = useState(2);
-    const [matiere, setMatiere] = useState(16);
-    const [note, setNote] = useState(100);
-    const [appreciation, setAppreciation] = useState('Doit redoubler d\'effort');
-    const [enseignant, setEnseignant] = useState(2);
-    const [dateDebutEvaluation, setDateDebutEvaluation] = useState(
-        formatDateToYYYYMMDD(getLastThursday(new Date()))
-    );
-    const [dateFinEvaluation, setDateFinEvaluation] = useState(
-        formatDateToYYYYMMDD(getNextWednesday())
-    );
-    const [items, setItems] = useState([]);
+const CreateEvaluationClasse = (
+                    eleve_id='1', 
+                    classe_id='2', 
+                    matiere_id='16', 
+                    dateDebut='2024-05-16', 
+                    dateFin='2024-05-22'
+                ) => {
+    const [eleve, setEleve] = useState(parseInt(1));
+    console.log("eleve: ", eleve);
+    const [classe, setClasse] = useState(parseInt(classe_id));
+    const [matiere, setMatiere] = useState(parseInt(matiere_id));
+    const [note, setNote] = useState();
+    const [appreciation, setAppreciation] = useState('');
+    const [enseignant, setEnseignant] = useState();
+    const dateDebutEvaluation = (dateDebut !=='' ? 
+                                dateDebut : formatDateToYYYYMMDD(getLastThursday(new Date())));
+    const dateFinEvaluation = (dateFin !=='' ? 
+                              dateFin : formatDateToYYYYMMDD(getNextWednesday()));
+    //const [items, setItems] = useState([]);
     const [messageErr, setMessageErr] = useState('');
     const [etatForm, setEtatForm] = useState('');
 
     // Utilisation du contexte AuthContext déclaré par le fichier useAuth.js
-    const myTokenContext = useContext(AuthContext);
+    //const myTokenContext = useContext(AuthContext);
     // URL de l'API Directus
-    const directusApiUrl = DIRECTUS_URL;
+    //const directusApiUrl = DIRECTUS_URL;
 
     useEffect(() => {
         // Fonction pour effectuer la requête à Directus
         const getItemList = async () => {
             try {
-                //if(classe>0){
-                    // Utilisation de l'API Directus pour récupérer des données (ajustez l'URL en fonction de vos besoins)
-                    const response = await axios.get(`${directusApiUrl}/items/Eleve?filter[classe][_eq]=${classe}&sort[]=id&access_token=${myTokenContext.accessToken.access_token}`); //&filter[status][_eq]=actif
-                    //const response = await axios.get(`${directusApiUrl}/items/operateur?access_token=${TOKEN}`);
-                    setItems(response.data.data);
-                    //if(items.length>0)
-                    //    setEleve({ id:items[0].id, nom:items[0].nom, prenom:items[0].prenom });
-                    //console.log("eleve: ", eleve);
-                //}
+                // Utilisation de l'API Directus pour récupérer des données (ajustez l'URL en fonction de vos besoins)
+                //const response = await axios.get(`${directusApiUrl}/items/Eleve?filter[classe][_eq]=${classe}&sort[]=id&access_token=${myTokenContext.accessToken.access_token}`); //&filter[status][_eq]=actif
+                //const response = await axios.get(`${directusApiUrl}/items/operateur?access_token=${TOKEN}`);
+                //setItems(response.data.data);
+                console.log("eleve: ", eleve, "classe: ", classe, "matiere: ", matiere);
             } catch (error) {
             console.error('Erreur lors de la récupération des données depuis Directus:', error);
             }
         }; // Fin fetchData
         // Appel de la fonction fetchData lorsque le composant est monté
-        getItemList(); 
-    }, [classe]);
-
-    console.log("items: ", items, "classe: ", classe, "matiere: ", matiere);
+        getItemList();
+        
+    }, [eleve, classe, matiere, note, enseignant, appreciation]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if(
-            eleve>0 && matiere>0 && note>=0 && note<=100 
+            eleve>0 && classe>0 && matiere>0 && note>=0 && note<=100 
             ) {
             try{
                 const response1 = axios({
@@ -99,13 +94,13 @@ const CreateEvaluationClasse = () => {
             `);
         }
         console.log(messageErr);
-        setEleve('');
+        /*setEleve('');
         setMatiere('');
         setNote('');
         setAppreciation('');
-        setEnseignant('');
-        //setStatus('published');
+        setEnseignant('');*/
 
+        //setStatus('published');
         //setEtatForm('');
         //setMessageErr('');
     }
