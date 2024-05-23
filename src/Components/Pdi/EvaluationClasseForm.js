@@ -12,7 +12,6 @@ const [students, setStudents] = useState([]);
 const [grades, setGrades] = useState({});
   
 const [eleve, setEleve] = useState(parseInt(1));
-console.log("eleve: ", eleve);
 const [classe, setClasse] = useState(parseInt(2));
 const [matiere, setMatiere] = useState(parseInt(15));
 const [note, setNote] = useState();
@@ -50,6 +49,7 @@ const dateFinEvaluation = (dateFin !=='' ?
   }, [classe, matiere]);
 
   const handleGradeChange = (studentId, event) => {
+    console.log("event.target: ", event.target);
     const { value } = event.target;
     setGrades({
       ...grades,
@@ -113,7 +113,8 @@ const dateFinEvaluation = (dateFin !=='' ?
         <form onSubmit={handleSubmit}>
         {students.map(student => (
             <div key={student.id} style={{ marginBottom: '10px' }}>
-            <span>{student.nom} {student.prenom} (Classe: {classe}, Matière: {matiere})</span>
+            <span><strong>{student.nom} {student.prenom}</strong> (Classe: {classe}, Matière: {matiere})</span>
+
             <Input
                 type="text"
                 value={grades[student.id]}
@@ -123,7 +124,7 @@ const dateFinEvaluation = (dateFin !=='' ?
             />
             </div>
         ))}
-        <button type="submit">Enregistrer les notes</button>
+        <button type="submit" className="btn btn-primary">Enregistrer les notes</button>
         </form>
     </>
   );
