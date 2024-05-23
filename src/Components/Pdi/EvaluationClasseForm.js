@@ -89,9 +89,8 @@ const dateFinEvaluation = (dateFin !=='' ?
 
   return (
     <>
-        <h2>
-            Evaluation des élèves de la classe <strong>{classe}</strong>
-        </h2>
+        <h2>Evaluation des élèves de la classe de <strong>{classe}</strong></h2>
+        <h3>Période du <strong>{dateDebutEvaluation}</strong> au <strong>{dateFinEvaluation}</strong></h3>
         <div className='row'>
             <div className="col">
             <label htmlFor='matiere'>Classe</label>
