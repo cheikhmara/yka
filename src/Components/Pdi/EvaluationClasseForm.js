@@ -6,17 +6,19 @@ import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday } from '../date
 import SelectListMatiere from './form/SelectListMatiere';
 import SelectListClasse from '../Eleves/form/SelectListClasse';
 import SelectList from './form/SelectList';
+import Input from './form/Input';
 
 const TOKEN = config.apiTOKEN;
 const DIRECTUS_URL = config.apiURL;  
 
 const EvaluationClasseForm = ({dateDebut='2024-05-23', dateFin='2024-05-29'}) => {
 const [students, setStudents] = useState([]);
- const [notes, setNotes] = useState({});
+const [notes, setNotes] = useState({});
 
 const [classe, setClasse] = useState();
 const [matiere, setMatiere] = useState();
 const [enseignant, setEnseignant] = useState();
+const [competence, setCompetence] = useState();
 const dateDebutEvaluation = (dateDebut !=='' ? 
                             dateDebut : formatDateToYYYYMMDD(getLastThursday(new Date())));
 const dateFinEvaluation = (dateFin !=='' ? 
@@ -39,6 +41,7 @@ const dateFinEvaluation = (dateFin !=='' ?
           acc[student.id] = { 
                 eleve: student.id, 
                 note: '', 
+                competence: competence,
                 appreciation: '', 
                 enseignant: enseignant,
                 matiere: matiere,
@@ -78,16 +81,18 @@ const dateFinEvaluation = (dateFin !=='' ?
       eleve: student.id,
       note: notes[student.id].note,
       appreciation: notes[student.id].appreciation,
+      competence: competence,
       date_debut_evaluation: dateDebutEvaluation,
       date_fin_evaluation: dateFinEvaluation
     }));
-
     //console.log("notesData: ", notesData);
    
     try {
       // Remplacez l'URL par l'adresse de votre API pour enregistrer les notes
       const response = await axios.post(`${DIRECTUS_URL}/items/evaluation?access_token=${TOKEN}`, notesData);
       console.log('Notes enregistrées avec succès', response.data.data);
+      setStudents([]);
+      setNotes([]);
     } catch (error) {
       console.error('Erreur lors de l\'enregistrement des notes', error);
     }
@@ -95,8 +100,8 @@ const dateFinEvaluation = (dateFin !=='' ?
 
   return (
     <>
-      <h2>Evaluation des élèves de la classe de <strong>{classe}</strong></h2>
-        <h3>Période du <strong>{dateDebutEvaluation}</strong> au <strong>{dateFinEvaluation}</strong></h3>
+      <h2>Evaluation des élèves</h2>
+      <h3>Période du <strong>{dateDebutEvaluation}</strong> au <strong>{dateFinEvaluation}</strong></h3>
       <div className='row'>
           <div className="col">
           <label htmlFor='matiere'>Classe</label>
@@ -114,6 +119,14 @@ const dateFinEvaluation = (dateFin !=='' ?
               />  
           </div>
           <div className='col'>
+              <label htmlFor='matiere'>Compétence</label>
+              <Input
+                  value={competence} 
+                  placeholder='Compétence'
+                  onChange={setCompetence} 
+              />
+          </div>
+          <div className='col'>
               <label htmlFor='matiere'>Enseignant</label>
               <SelectList
                   value={enseignant} 
@@ -124,25 +137,34 @@ const dateFinEvaluation = (dateFin !=='' ?
       <hr />
       <form onSubmit={handleSubmit}>
         {students.map(student => (
-          <div key={student.id} style={{ marginBottom: '10px' }}>
-            <span>{student.prenom} {student.nom} (classe: {student.classe})</span>
-            <input
-              type="text"
-              name="note"
-              value={notes[student.id].note}
-              onChange={(event) => handleNoteChange(student.id, event)}
-              placeholder="Note"
-              required
-            />
-            <input
-              type="text"
-              name="appreciation"
-              value={notes[student.id].appreciation}
-              onChange={(event) => handleNoteChange(student.id, event)}
-              placeholder="Appreciation"
-            />
+          <div key={student.id} className="row"> 
+            <div className="col">
+              <span>{student.prenom} {student.nom}</span>
+            </div>
+            <div className="col">
+              <input
+                className="form-control"
+                type="text"
+                name="note"
+                value={notes[student.id].note}
+                onChange={(event) => handleNoteChange(student.id, event)}
+                placeholder="Note" 
+                required
+              /> 
+            </div>
+            <div className="col">
+              <input
+                className="form-control"
+                type="text"
+                name="appreciation"
+                value={notes[student.id].appreciation}
+                onChange={(event) => handleNoteChange(student.id, event)}
+                placeholder="Appreciation"
+              />
+            </div>
           </div>
         ))}
+        <br />
         <button className="btn btn-primary" type="submit">Enregistrer les notes</button>
       </form>
     </>

@@ -21,15 +21,16 @@ function App() {
         {/*<SelectList />*/}
         <Menu2 />
         <Routes>
-          <Route path="/" element={<Eleve />} />
-          <Route path="/pdi" element={<Pdi />} />
+          {/*<Route path="/" element={<Eleve />} />
           <Route path="/note" element={<Note />} />
-          <Route path="/classe" element={<Classe />} />
+          <Route path="/classe" element={<Classe />} />*/}
           <Route path="/eleve" element={<Eleve />} />
-          <Route path="/evaluation" element={<Evaluation />} />
-          <Route path="/evaluation/create" element={<CreateEvaluation />} />
-          {/*<Route path="/evaluations/create" element={<CreateEvaluationClasse />} />*/}
+          <Route path="/pdi" element={<Pdi />} />
           <Route path="/evaluations/create" element={<EvaluationClasse />} />
+          {/*<Route path="/evaluations/create" element={<CreateEvaluationClasse />} />
+          <Route path="/evaluation/create" element={<CreateEvaluation />} />
+          <Route path="/evaluation" element={<Evaluation />} />
+          */}
         </Routes>
       </TokenAuthContext>
 

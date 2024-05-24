@@ -36,7 +36,7 @@ const Trow3 = ({id, nom, prenom, status, classe, onIsCheckedChange,}) => {
             </button>
         </Link>
       </td>
-      <td>
+      {/*<td>
         <Link 
           className="" style={{color: "#614a4ce6", textDecoration: "none"}}
           to={ "/evaluation/create?eleve=" + id + "&nom=" + nom + "&prenom=" + prenom }>
@@ -44,7 +44,7 @@ const Trow3 = ({id, nom, prenom, status, classe, onIsCheckedChange,}) => {
               Evaluer
             </button>
         </Link>
-      </td>
+  </td>*/}
     </tr>
   )
 } 

@@ -16,16 +16,16 @@ const Menu2 = () => {
                         Eleves
                     </Link>
                     <ul className="dropdown-menu">
-                        <li><Link className="dropdown-item" to="/eleve">Eleve</Link></li>
-                        <li><Link className="dropdown-item" to="/evaluation/create">Evaluer</Link></li>
-                        <li><Link className="dropdown-item" to="/evaluations/create">Evaluer classe</Link></li>
-                        {/*<li><Link className="dropdown-item" to="/Note">Note</Link></li>
+                        <li><Link className="dropdown-item" to="/eleve">Tous les élèves</Link></li>
+                        <li><Link className="dropdown-item" to="/evaluations/create">Evaluer</Link></li>
+                        {/*<li><Link className="dropdown-item" to="/evaluation/create">Evaluer</Link></li>
+                        <li><Link className="dropdown-item" to="/Note">Note</Link></li>
                         <li><Link className="dropdown-item" to="/classe">Classe</Link></li>
                         <li><Link className="dropdown-item" to="/evaluation">Evaluation</Link></li>
                         <li><Link className="dropdown-item" to="/pdi">Pdi</Link></li>*/}
                     </ul>
                 </li>
-                <li className="nav-item dropdown">
+                {/*<li className="nav-item dropdown">
                     <Link className="nav-link dropdown-toggle" to="/pdi" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Pdi
                     </Link>
@@ -33,7 +33,7 @@ const Menu2 = () => {
                         <li><Link className="dropdown-item" to="/classe">Classe</Link></li>
                         <li><Link className="dropdown-item" to="/evaluation">Evaluation</Link></li>
                     </ul>
-                </li>
+                </li>*/}
             </ul>
             </div>
         </div>
