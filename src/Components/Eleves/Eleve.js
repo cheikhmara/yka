@@ -21,6 +21,8 @@ const Eleve = () => {
     const [statusParent, setStatusParent] = useState('');
     const [searchClasse, setSearchClasse] = useState('');
     const [classes, setClasses] = useState([]);
+    // Récupère les id des classe pour les besoin du composant Filtre
+    const [classeIds, setClasseIds] = useState([]); 
 
     // Utilisation du contexte AuthContext déclaré par le fichier useAuth.js
     const myTokenContext = useContext(AuthContext);
@@ -40,14 +42,14 @@ const Eleve = () => {
          
           // Remplacer les id des classes par leurs noms corresponadants dans le taleau response.data.data
           response.data.data.forEach(item => {
+            //classeIds[ref.current.options[item.classe].text] = item.classe;
             item.classe = ref.current.options[item.classe].text; 
           }); 
-          console.log(data);
-
+ 
           setData(
             response.data.data.filter( 
                 d => { 
-                    //console.log(d);
+                    //console.log("d: ", d);
                     if(searchId !=='' && d.id !== parseInt(searchId)){
                       return false;
                     }
@@ -57,13 +59,17 @@ const Eleve = () => {
                       return false;
                     if(statusParent !=='' && d.status.toLocaleLowerCase() !== statusParent.toLocaleLowerCase())
                       return false;
-                    if(searchClasse !=='' && d.classe !== parseInt(searchClasse))
-                      return false;
+                    //if(searchClasse !=='' && d.classe !== parseInt(searchClasse))
+                    //  return false;
                     return true;
                 }
             )
           );
-          
+          console.log("data: ", data);
+          //console.log("classeIds: ", classeIds);
+          console.log("searchClasse: ", searchClasse);
+          //console.log("ref.current.options", ref.current.options);
+         
         } catch (error) {
           console.error('Erreur lors de la récupération des données depuis Directus:', error);
         }
