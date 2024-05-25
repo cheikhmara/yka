@@ -1,4 +1,3 @@
-
 export function formatDateToYYYYMMDD(date) {
     if (!(date instanceof Date)) {
       throw new TypeError("The provided value is not a valid Date object");
@@ -33,4 +32,46 @@ export function getLastThursday(fromDate) {
     const lastThursday = new Date(fromDate);
     lastThursday.setDate(fromDate.getDate() - daysToSubtract);
     return lastThursday;
+}
+
+// Retourne un tableau contenant la liste des dates des jeudis entre startDate et endDate
+export function getThursdays() {
+    const thursdays = [];
+    const startDate = new Date(2024, 0, 1); // 1er janvier 2024
+    const endDate = new Date(2025, 0, 1); // 1er janvier 2025
+  
+    while (startDate < endDate) {
+      if (startDate.getDay() === 4) { // 4 correspond au jeudi (0 pour dimanche, 1 pour lundi, etc.)
+        thursdays.push(formatDateToYYYYMMDD(new Date(startDate)));
+      }
+      startDate.setDate(startDate.getDate() + 1); // Passage à la journée suivante
+    }
+  
+    return thursdays;
+}
+
+// Ajoute 7 jours à toutes les dates du tableau retourné par la fnction getThursdays()
+export function getNextSevenDays(date) {
+    const nextDays = [];
+    for (let i = 1; i <= 7; i++) {
+      const nextDay = new Date(date);
+      nextDay.setDate(date.getDate() + i);
+      nextDays.push(formatDateToYYYYMMDD(new Date(nextDay)));
+    }
+    return nextDays;
+}
+
+// Retourne la date passée en argument + 7 jours
+/*export function getPlusSevenDay(date, nombre=6) {
+    const plusSevenDay = new Date(date); 
+    plusSevenDay.setDate(date.getDate() + nombre);
+    return formatDateToYYYYMMDD(new Date(plusSevenDay));
+}*/
+export function getPlusSevenDay(date, nombre = 6) { 
+  let parsedDate = new Date(date);
+  if (isNaN(parsedDate)) {
+      throw new TypeError("The provided value is not a valid Date string");
+  }
+  parsedDate.setDate(parsedDate.getDate() + nombre);
+  return formatDateToYYYYMMDD(parsedDate);
 }

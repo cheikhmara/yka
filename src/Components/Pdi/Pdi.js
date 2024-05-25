@@ -6,7 +6,8 @@ import config from '../../Config';
 //import AccessToken from '../AccessToken';
 import { AuthContext } from '../../useAuth';
 import { Link, useLocation } from 'react-router-dom';
-import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday } from '../datePdi';
+import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday, getPlusSevenDay } from '../datePdi';
+import SelectListDateEvaluation from './form/SelectListDateEvaluation';
 
 //const TOKEN = config.apiTOKEN; 
 const DIRECTUS_URL = config.apiURL;  
@@ -19,17 +20,17 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
     const [searchNote, setSearchNote] = useState('');
     const [searchEnseignant, setSearchEnseignant] = useState('');
     const [searchMatiere, setSearchMatiere] = useState('');
-    const dateDebutEvaluation = (dateDebut !=='' ? 
-                            dateDebut : formatDateToYYYYMMDD(getLastThursday(new Date())));
-    const dateFinEvaluation = (dateFin !=='' ? 
-                            dateFin : formatDateToYYYYMMDD(getNextWednesday()));
+    const [dateDebutEvaluation, setDateDebutEvaluation] = useState(
+      dateDebut !=='' ?  dateDebut : formatDateToYYYYMMDD(getLastThursday(new Date()))
+    );
+    const [dateFinEvaluation, setDateFinEvaluation] = useState(
+      dateFin !=='' ?  dateFin : formatDateToYYYYMMDD(getNextWednesday())
+    );
+    const [semaineEvaluation, setSemaineEvaluation] = useState(dateDebutEvaluation);
 
     // Utilisation du contexte AuthContext déclaré par le fichier useAuth.js
     const myTokenContext = useContext(AuthContext);
     const ref = useRef();
-
-    // URL de l'API Directus
-    //const directusApiUrl = DIRECTUS_URL;
 
     const location = useLocation();
     // Utilisation de URLSearchParams pour extraire les paramètres de la requête
@@ -41,6 +42,16 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
     const prenom = queryParams.get('prenom');
   
     useEffect(() => {
+      if(semaineEvaluation !== ''){
+        //dateDebutEvaluation = semaineEvaluation;
+        setDateDebutEvaluation(
+          semaineEvaluation
+        );
+        //dateFinEvaluation = getPlusSevenDay(semaineEvaluation, 6);
+        setDateFinEvaluation(
+          getPlusSevenDay(semaineEvaluation, 6)
+        );
+      }
       // Fonction pour effectuer la requête à Directus
       const fetchData = async () => {
         try {         
@@ -61,9 +72,8 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
               sort: ['-id']
             }
           });
-          
           console.log("response.data.data: ", response.data.data);
-
+          
           // Remplacer les id des classes par leurs noms corresponadants dans le taleau response.data.data
           response.data.data.forEach(item => {
             if(ref.current.options[item.matiere].text!=='')
@@ -88,23 +98,32 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
           );
           
         } catch (error) {
-          console.error('Erreur lors de la récupération des données de l\'API:', error);
+          console.error('Erreur lors de la récupération des dates d\'évaluation:', error);
         }
       };
   
       // Appel de la fonction fetchData lorsque le composant est monté
       fetchData();
     }, [ // Le tableau vide signifie que useEffect s'exécutera uniquement lors du montage initial
+        semaineEvaluation,
+        dateDebutEvaluation,
+        dateFinEvaluation,
         searchNote,
         searchEnseignant, 
         searchMatiere, 
   ]); 
+
+  console.log("semaineEvaluation: ", semaineEvaluation); 
+
 
     return (
         <>
             <h2>
               Programme de Développement Individuel de l'élève  <strong>{prenom} {nom}</strong>
             </h2>
+            <SelectListDateEvaluation 
+                value={semaineEvaluation} 
+                onChange={setSemaineEvaluation} />
             <h3>
               Période du {dateDebutEvaluation} au {dateFinEvaluation}
             </h3>
