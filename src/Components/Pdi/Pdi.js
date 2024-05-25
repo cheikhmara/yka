@@ -6,18 +6,23 @@ import config from '../../Config';
 //import AccessToken from '../AccessToken';
 import { AuthContext } from '../../useAuth';
 import { Link, useLocation } from 'react-router-dom';
+import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday } from '../datePdi';
 
 //const TOKEN = config.apiTOKEN; 
 const DIRECTUS_URL = config.apiURL;  
 
 //let searchData = [];
 
-const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluation='2024-04-24'}) => {
+const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
     // État pour stocker les données récupérées depuis Directus
     const [data, setData] = useState(null);
     const [searchNote, setSearchNote] = useState('');
     const [searchEnseignant, setSearchEnseignant] = useState('');
     const [searchMatiere, setSearchMatiere] = useState('');
+    const dateDebutEvaluation = (dateDebut !=='' ? 
+                            dateDebut : formatDateToYYYYMMDD(getLastThursday(new Date())));
+    const dateFinEvaluation = (dateFin !=='' ? 
+                            dateFin : formatDateToYYYYMMDD(getNextWednesday()));
 
     // Utilisation du contexte AuthContext déclaré par le fichier useAuth.js
     const myTokenContext = useContext(AuthContext);
@@ -47,10 +52,10 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
                   _eq: eleve
                 },
                 date_debut_evaluation: {
-                  _eq: date_debut_evaluation
+                  _eq: dateDebutEvaluation
                 },
                 date_fin_evaluation: {
-                  _eq: date_fin_evaluation
+                  _eq: dateFinEvaluation
                 },
               },
               sort: ['-id']
@@ -101,7 +106,7 @@ const Pdi = ({eleve_id=1, date_debut_evaluation='2024-04-18', date_fin_evaluatio
               Programme de Développement Individuel de l'élève  <strong>{prenom} {nom}</strong>
             </h2>
             <h3>
-              Période du {date_debut_evaluation} au {date_fin_evaluation}
+              Période du {dateDebutEvaluation} au {dateFinEvaluation}
             </h3>
             <Filtre 
               selectRef={ref}

@@ -7,14 +7,14 @@ import SelectListMatiere from './form/SelectListMatiere';
 import SelectListClasse from '../Eleves/form/SelectListClasse';
 import SelectList from './form/SelectList';
 import Input from './form/Input';
+import { Link } from 'react-router-dom';
 
 const TOKEN = config.apiTOKEN;
 const DIRECTUS_URL = config.apiURL;  
 
-const EvaluationClasseForm = ({dateDebut='2024-05-23', dateFin='2024-05-29'}) => {
+const EvaluationClasseForm = ({dateDebut='', dateFin=''}) => {
 const [students, setStudents] = useState([]);
 const [notes, setNotes] = useState({});
-
 const [classe, setClasse] = useState();
 const [matiere, setMatiere] = useState();
 const [enseignant, setEnseignant] = useState();
@@ -124,6 +124,7 @@ const dateFinEvaluation = (dateFin !=='' ?
                   value={competence} 
                   placeholder='Compétence'
                   onChange={setCompetence} 
+                  required
               />
           </div>
           <div className='col'>
@@ -166,6 +167,15 @@ const dateFinEvaluation = (dateFin !=='' ?
         ))}
         <br />
         <button className="btn btn-primary" type="submit">Enregistrer les notes</button>
+        <br /><br />
+        <Link 
+            className="" 
+            style={{color: "#614a4ce6", textDecoration: "none"}}
+            to="/eleve">
+            <button type="button" className="btn btn-info btn-xs">
+                Liste des élèves
+            </button>
+        </Link>
       </form>
     </>
   );
