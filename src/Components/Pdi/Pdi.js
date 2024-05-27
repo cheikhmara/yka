@@ -8,6 +8,7 @@ import { AuthContext } from '../../useAuth';
 import { Link, useLocation } from 'react-router-dom';
 import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday, getPlusSevenDay } from '../datePdi';
 import SelectListDateEvaluation from './form/SelectListDateEvaluation';
+import Graphs from '../Graphs';
 
 //const TOKEN = config.apiTOKEN; 
 const DIRECTUS_URL = config.apiURL;  
@@ -148,6 +149,7 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
                     Liste élèves
                 </button>
             </Link>
+            <Graphs />
         </>
     );
   };
