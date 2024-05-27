@@ -8,7 +8,8 @@ import { AuthContext } from '../../useAuth';
 import { Link, useLocation } from 'react-router-dom';
 import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday, getPlusSevenDay } from '../datePdi';
 import SelectListDateEvaluation from './form/SelectListDateEvaluation';
-import Graphs from '../Graphs';
+import Graphs from '../Graphs/Graphs';
+import RadarChart from '../Graphs/RadarChart';
 
 //const TOKEN = config.apiTOKEN; 
 const DIRECTUS_URL = config.apiURL;  
@@ -149,7 +150,17 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
                     Liste élèves
                 </button>
             </Link>
-            <Graphs />
+            {/*<Graphs />*/}
+            <div className="row">
+              {
+                data && data.length>0 ? 
+                  <div className="col">
+                    <RadarChart data={data} /> 
+                  </div>
+                  : 'Données indisponibles dans la BD. '
+              }
+            </div>
+            
         </>
     );
   };
