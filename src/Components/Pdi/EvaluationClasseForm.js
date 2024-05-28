@@ -88,14 +88,14 @@ const dateFinEvaluation = (dateFin !=='' ?
     //console.log("notesData: ", notesData);
    
     try {
-      if(matiere!=='' && matiere>0 && enseignant!=='' && enseignant>0){
+      if(matiere!=='' && matiere>0 && enseignant!=='' && enseignant>0 && competence!==''){
         // Remplacez l'URL par l'adresse de votre API pour enregistrer les notes
         const response = await axios.post(`${DIRECTUS_URL}/items/evaluation?access_token=${TOKEN}`, notesData);
         console.log('Notes enregistrées avec succès', response.data.data);
         setStudents([]);
         setNotes([]);
       }else{
-        console.log('Veuillez indiquer les champs matiere et enseignant.');
+        console.log('Veuillez indiquer les champs matiere, enseignant et competences.');
       }
     } catch (error) {
       console.error('Erreur lors de l\'enregistrement des notes', error);
