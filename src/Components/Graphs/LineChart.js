@@ -24,11 +24,11 @@ ChartJS.register(
 
 const LineChart = ({ data }) => {
   const chartData = {
-    labels: data.map((entry) => entry.date),
+    labels: data.map((entry) => entry.matiere),
     datasets: [
       {
         label: "Score",
-        data: data.map((entry) => entry.score),
+        data: data.map((entry) => entry.note),
         fill: false,
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgba(75, 192, 192, 1)",

@@ -22,13 +22,20 @@ ChartJS.register(
 
 const BarChart = ({ data }) => {
   const chartData = {
-    labels: data.map((entry) => entry.date),
+    labels: data.map((entry) => entry.matiere),
     datasets: [
       {
-        label: "Score",
-        data: data.map((entry) => entry.score),
+        label: "Note élève" ,
+        data: data.map((entry) => entry.note),
         backgroundColor: "rgba(153, 102, 255, 0.2)",
         borderColor: "rgba(153, 102, 255, 1)",
+        borderWidth: 1,
+      },
+      {
+        label: "Moyenne classe",
+        data: data.map((entry) => entry.note - 5),
+        backgroundColor: "rgba(105, 10, 55, 50)",
+        borderColor: "rgba(10, 10, 25, 100)",
         borderWidth: 1,
       },
     ],
@@ -38,7 +45,7 @@ const BarChart = ({ data }) => {
     responsive: true,
     plugins: {
       legend: { position: "top" },
-      title: { display: true, text: "Progression de l'élève - Barres" },
+      title: { display: true, text: "Note de l'élève sur la période" },
     },
   };
 

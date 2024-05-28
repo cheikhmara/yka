@@ -10,6 +10,8 @@ import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday, getPlusSevenDa
 import SelectListDateEvaluation from './form/SelectListDateEvaluation';
 import Graphs from '../Graphs/Graphs';
 import RadarChart from '../Graphs/RadarChart';
+import LineChart from '../Graphs/LineChart';
+import BarChart from '../Graphs/BarChart';
 
 //const TOKEN = config.apiTOKEN; 
 const DIRECTUS_URL = config.apiURL;  
@@ -54,7 +56,7 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
           getPlusSevenDay(semaineEvaluation, 6)
         );
       }
-      // Fonction pour effectuer la requête à Directus
+      // Fonction pour effectuer la requête à Directus pour récupérer les notes de l'élève
       const fetchData = async () => {
         try {         
           const response = await axios.get(`${DIRECTUS_URL}/items/evaluation`, {
@@ -74,9 +76,9 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
               sort: ['-id']
             }
           });
-          console.log("response.data.data: ", response.data.data);
+          //console.log("response.data.data: ", response.data.data);
           
-          // Remplacer les id des classes par leurs noms corresponadants dans le taleau response.data.data
+          // Remplacer les id des classes par leurs noms correspondants dans le taleau response.data.data
           response.data.data.forEach(item => {
             if(ref.current.options[item.matiere].text!=='')
               item.matiere = ref.current.options[item.matiere].text;  
@@ -114,8 +116,23 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
         searchEnseignant, 
         searchMatiere, 
   ]); 
+  //console.log("semaineEvaluation: ", semaineEvaluation); 
 
-  console.log("semaineEvaluation: ", semaineEvaluation); 
+  // Requête à Directus pour récupérer les moyennes des élèves de la classe sur chaque matière
+  /*useEffect(() => {
+    const responseMoy = axios({
+        method: 'get',
+        url: `${DIRECTUS_URL}/items/evaluation/${classe}?access_token=${TOKEN}`, 
+    }); 
+    responseMoy.then((moy) => {
+        console.log(moy.data.data);
+        ...
+    }).catch((err) => {
+        setMessageErr("Erreur: " + err);
+    }).finally(() => {
+    
+    });
+  }, [id]);*/
 
 
     return (
@@ -155,7 +172,9 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
               {
                 data && data.length>0 ? 
                   <div className="col">
-                    <RadarChart data={data} /> 
+                    {/*<RadarChart data={data} />*/} 
+                    {/*<LineChart data={data} />*/}
+                    <BarChart data={data} />
                   </div>
                   : 'Données indisponibles dans la BD. '
               }
