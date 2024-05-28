@@ -80,11 +80,11 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
           
           // Remplacer les id des classes par leurs noms correspondants dans le taleau response.data.data
           response.data.data.forEach(item => {
-            if(ref.current.options[item.matiere].text!=='')
+            if(item.matiere>0 && ref.current.options[item.matiere].text!=='')
               item.matiere = ref.current.options[item.matiere].text;  
           });
           //console.log("ref.current.options: ", ref.current.options);
-          console.log(data);
+          //console.log(data);
          
           setData(
             response.data.data.filter( 
