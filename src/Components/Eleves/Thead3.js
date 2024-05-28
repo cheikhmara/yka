@@ -4,7 +4,7 @@ const Thead3 = () => {
   return (
     <thead>
         <tr>
-            <th>X</th>
+            {/*<th>X</th>*/}
             <th>ID</th>
             <th>NOM</th>
             <th>PRENOM</th>

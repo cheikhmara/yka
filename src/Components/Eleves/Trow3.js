@@ -16,12 +16,12 @@ const Trow3 = ({id, nom, prenom, status, classe, onIsCheckedChange,}) => {
 
   return (
     <tr indice={id} id={"row"+id}>
-      <td>
+      {/*<td>
         <Checkbox 
             id={id}
             onIsCheckedChange={onIsCheckedChange}
         />
-      </td>
+  </td>*/}
       <td>{id}</td>
       <td>{nom}</td>
       <td>{prenom}</td>
