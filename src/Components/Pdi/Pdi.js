@@ -76,7 +76,7 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
               sort: ['-id']
             }
           });
-          //console.log("response.data.data: ", response.data.data);
+          console.log("response.data.data: ", response.data.data);
           
           // Remplacer les id des classes par leurs noms correspondants dans le taleau response.data.data
           response.data.data.forEach(item => {
@@ -117,23 +117,6 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
         searchMatiere, 
   ]); 
   //console.log("semaineEvaluation: ", semaineEvaluation); 
-
-  // Requête à Directus pour récupérer les moyennes des élèves de la classe sur chaque matière
-  /*useEffect(() => {
-    const responseMoy = axios({
-        method: 'get',
-        url: `${DIRECTUS_URL}/items/evaluation/${classe}?access_token=${TOKEN}`, 
-    }); 
-    responseMoy.then((moy) => {
-        console.log(moy.data.data);
-        ...
-    }).catch((err) => {
-        setMessageErr("Erreur: " + err);
-    }).finally(() => {
-    
-    });
-  }, [id]);*/
-
 
     return (
         <>
