@@ -21,6 +21,21 @@ export function getNextWednesday(currentDate = new Date()) {
     return nextWednesday;
 }
 
+export function getNextWednesday2(currentDate = new Date()) {
+  // Obtenir le jour de la semaine (0 pour dimanche, 1 pour lundi, ..., 6 pour samedi)
+  const dayOfWeek = currentDate.getDay();
+  // Calculer le nombre de jours jusqu'au prochain mercredi
+  const daysUntilNextWednesday = (3 - dayOfWeek + 7) % 7;
+  // Si aujourd'hui est déjà mercredi, nous devons ajouter 7 jours pour obtenir le prochain mercredi
+  let daysToAdd = daysUntilNextWednesday === 0 ? 7 : daysUntilNextWednesday;
+  // Créer la date du prochain mercredi
+  const nextWednesday = new Date(currentDate);
+  if(daysToAdd==7)
+      daysToAdd = 0;
+  nextWednesday.setDate(currentDate.getDate() + daysToAdd);
+  return nextWednesday;
+}
+
 export function getLastThursday(fromDate) {
     // Obtenir le jour de la semaine de la date donnée
     const dayOfWeek = fromDate.getDay();

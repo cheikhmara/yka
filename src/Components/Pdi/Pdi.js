@@ -121,7 +121,7 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
     return (
         <>
             <h2>
-              Programme de Développement Individuel de l'élève  <strong>{prenom} {nom}</strong>
+              PDI: Evaluation de l'élève  <strong>{prenom} {nom} sur la période</strong>
             </h2>
             <SelectListDateEvaluation 
                 value={semaineEvaluation} 

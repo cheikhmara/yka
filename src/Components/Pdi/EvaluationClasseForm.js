@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import config from '../../Config';
 import { AuthContext } from '../../useAuth';
-import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday } from '../datePdi';
+import { formatDateToYYYYMMDD, getLastThursday, getNextWednesday, getNextWednesday2 } from '../datePdi';
 import SelectListMatiere from './form/SelectListMatiere';
 import SelectListClasse from '../Eleves/form/SelectListClasse';
 import SelectList from './form/SelectList';
@@ -22,7 +22,7 @@ const [competence, setCompetence] = useState();
 const dateDebutEvaluation = (dateDebut !=='' ? 
                             dateDebut : formatDateToYYYYMMDD(getLastThursday(new Date())));
 const dateFinEvaluation = (dateFin !=='' ? 
-                            dateFin : formatDateToYYYYMMDD(getNextWednesday()));
+                            dateFin : formatDateToYYYYMMDD(getNextWednesday2()));
 
 
   //Utilisation du contexte AuthContext déclaré par le fichier useAuth.js
