@@ -58,7 +58,7 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
       }
       // Fonction pour effectuer la requête à Directus pour récupérer les notes de l'élève
       const fetchData = async () => {
-        try {         
+        try {  
           const response = await axios.get(`${DIRECTUS_URL}/items/evaluation`, {
             params: {
               access_token: myTokenContext.accessToken.access_token,
@@ -69,18 +69,19 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
                 date_debut_evaluation: {
                   _eq: dateDebutEvaluation
                 },
-                date_fin_evaluation: {
+                /*date_fin_evaluation: {
                   _eq: dateFinEvaluation
-                },
+                },*/
               },
               sort: ['-id']
             }
           });
           console.log("response.data.data: ", response.data.data);
+          console.log("debut: ", dateDebutEvaluation, "fin: ", dateFinEvaluation);
           
           // Remplacer les id des classes par leurs noms correspondants dans le taleau response.data.data
           response.data.data.forEach(item => {
-            if(ref.current.options[item.matiere].text!=='')
+            if(item.matiere>0 && ref.current.options[item.matiere].text!=='')
               item.matiere = ref.current.options[item.matiere].text;  
           });
           //console.log("ref.current.options: ", ref.current.options);
@@ -113,8 +114,7 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
         dateDebutEvaluation,
         dateFinEvaluation,
         searchNote,
-        searchEnseignant, 
-        searchMatiere, 
+        searchEnseignant,  
   ]); 
   //console.log("semaineEvaluation: ", semaineEvaluation); 
 
