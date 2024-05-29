@@ -25,10 +25,10 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
     const [searchEnseignant, setSearchEnseignant] = useState('');
     const [searchMatiere, setSearchMatiere] = useState('');
     const [dateDebutEvaluation, setDateDebutEvaluation] = useState(
-      dateDebut !=='' ?  dateDebut : formatDateToYYYYMMDD(getLastThursday(new Date()))
+      dateDebut !=='' ?  formatDateToYYYYMMDD(new Date(dateDebut)) : formatDateToYYYYMMDD(getLastThursday(new Date()))
     );
     const [dateFinEvaluation, setDateFinEvaluation] = useState(
-      dateFin !=='' ?  dateFin : formatDateToYYYYMMDD(getNextWednesday())
+      dateFin !=='' ?  formatDateToYYYYMMDD(new Date(dateFin)) : formatDateToYYYYMMDD(getNextWednesday())
     );
     const [semaineEvaluation, setSemaineEvaluation] = useState(dateDebutEvaluation);
 
@@ -80,7 +80,7 @@ const Pdi = ({eleve_id=1, dateDebut='', dateFin=''}) => {
           
           // Remplacer les id des classes par leurs noms correspondants dans le taleau response.data.data
           response.data.data.forEach(item => {
-            if(item.matiere>0 && ref.current.options[item.matiere].text!=='')
+            if(ref.current.options[item.matiere].text!=='')
               item.matiere = ref.current.options[item.matiere].text;  
           });
           //console.log("ref.current.options: ", ref.current.options);
