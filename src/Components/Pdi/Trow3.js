@@ -1,7 +1,7 @@
 import React from 'react'
 //import { Link } from 'react-router-dom';
 
-const Trow3 = ({id, enseignant, matiere, note}) => {
+const Trow3 = ({id, enseignant, matiere, competence, note}) => {
   let bgcolor = '';
   if(note < 30)
     bgcolor = '#FF0000';
@@ -19,6 +19,7 @@ const Trow3 = ({id, enseignant, matiere, note}) => {
       {/*<td>{id}</td>
       <td>{enseignant}</td>*/}
       <td>{matiere}</td>
+      <td>{competence}</td>
       <td style={{ backgroundColor: bgcolor }}>{note}</td>
       <td>
         {/*<Link  

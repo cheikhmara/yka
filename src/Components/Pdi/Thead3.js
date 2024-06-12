@@ -7,6 +7,7 @@ const Thead3 = () => {
             {/*<th>ID</th>
             <th>ENSEIGNANT</th>*/}
             <th>MATIERE</th>
+            <th>COMPETENCE</th>
             <th>NOTE</th>
             {/*<th>actions</th>*/}
         </tr>
